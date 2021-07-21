@@ -56,7 +56,7 @@ func main() {
 	var (
 		a apiClient
 
-		configFile, loggingLevel string
+		configFile, loggingLevel, displayURL string
 		purgeTags, purgeDryRun   bool
 	)
 	flag.StringVar(&configFile, "config-file", "/opt/config/config.yml", "path to the config file")
@@ -65,6 +65,12 @@ func main() {
 	flag.BoolVar(&purgeDryRun, "dry-run", false, "dry-run for purging task, does not delete anything")
 	flag.Parse()
 	
+		
+	val, ok := os.LookupEnv("REGISTRY_URL");
+	if ok  {
+		displayURL = val
+	}
+		
 	if loggingLevel != "info" {
 		if level, err := logrus.ParseLevel(loggingLevel); err == nil {
 			logrus.SetLevel(level)
@@ -83,11 +89,6 @@ func main() {
 		panic(err)
 	}
 	// Validate registry URL.
-	
-	val, ok := os.LookupEnv("REGISTRY_URL");
-	if ok  {
-		a.config.RegistryURL = val
-	}
 	u, err := url.Parse(a.config.RegistryURL)
 	if err != nil {
 	  	panic(err)
