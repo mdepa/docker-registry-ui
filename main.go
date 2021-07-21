@@ -92,7 +92,7 @@ func main() {
 	if err != nil {
 	  	panic(err)
 	}
-	
+	fmt.Printf("Registry URL is %s\n", a.config.RegistryURL)
 	// Normalize base path.
 	if a.config.BasePath != "" {
 		if !strings.HasPrefix(a.config.BasePath, "/") {
