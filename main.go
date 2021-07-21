@@ -65,6 +65,11 @@ func main() {
 	flag.BoolVar(&purgeDryRun, "dry-run", false, "dry-run for purging task, does not delete anything")
 	flag.Parse()
 
+	val, ok := os.LookupEnv("REGISTRY_URL");
+	if ok  {
+		a.config.RegistryURL := val
+	}
+	
 	if loggingLevel != "info" {
 		if level, err := logrus.ParseLevel(loggingLevel); err == nil {
 			logrus.SetLevel(level)
