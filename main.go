@@ -59,7 +59,7 @@ func main() {
 		configFile, loggingLevel string
 		purgeTags, purgeDryRun   bool
 	)
-	flag.StringVar(&configFile, "config-file", "config.yml", "path to the config file")
+	flag.StringVar(&configFile, "config-file", "/opt/config/config.yml", "path to the config file")
 	flag.StringVar(&loggingLevel, "log-level", "info", "logging level")
 	flag.BoolVar(&purgeTags, "purge-tags", false, "purge old tags instead of running a web server")
 	flag.BoolVar(&purgeDryRun, "dry-run", false, "dry-run for purging task, does not delete anything")
