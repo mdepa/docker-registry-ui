@@ -70,7 +70,7 @@ func main() {
 			logrus.SetLevel(level)
 		}
 	}
-	fmt.PrintLn("MDepa - Hello GO world")
+	fmt.Printf("MDepa - Hello GO world")
 	// Read config file.
 	if _, err := os.Stat(configFile); os.IsNotExist(err) {
 		panic(err)
