@@ -64,11 +64,6 @@ func main() {
 	flag.BoolVar(&purgeTags, "purge-tags", false, "purge old tags instead of running a web server")
 	flag.BoolVar(&purgeDryRun, "dry-run", false, "dry-run for purging task, does not delete anything")
 	flag.Parse()
-
-	val, ok := os.LookupEnv("REGISTRY_URL");
-	if ok  {
-		a.config.RegistryURL := val
-	}
 	
 	if loggingLevel != "info" {
 		if level, err := logrus.ParseLevel(loggingLevel); err == nil {
@@ -88,10 +83,16 @@ func main() {
 		panic(err)
 	}
 	// Validate registry URL.
+	
+	val, ok := os.LookupEnv("REGISTRY_URL");
+	if ok  {
+		a.config.RegistryURL = val
+	}
 	u, err := url.Parse(a.config.RegistryURL)
 	if err != nil {
-		panic(err)
+	  	panic(err)
 	}
+	
 	// Normalize base path.
 	if a.config.BasePath != "" {
 		if !strings.HasPrefix(a.config.BasePath, "/") {
